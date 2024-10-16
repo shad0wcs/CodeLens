@@ -1,0 +1,17 @@
+{% extends 'dev/base.html' %}
+
+{% block main %}
+    <h1>Upload an image with python code snippet:</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Convert to code</button>
+    </form>
+    {% if result_text is not None %}
+        <h2>Result:</h2>
+        <!-- Linebreaksbr converts raw python string to html readable format-->
+        <code> {{ result_text|linebreaksbr  }}</code> 
+    {% else %}
+        <h2>Nothing to see yet</h2>
+    {% endif %}
+{% endblock %}

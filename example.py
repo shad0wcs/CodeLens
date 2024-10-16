@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from tesseract import api_usage
-from python_formater import validation
+from codelens_backend.tesseract import api_usage
+from codelens_backend.python_formater import validation
 
 from dotenv import load_dotenv
 import os
