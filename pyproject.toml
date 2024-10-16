@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "codelens"
+version = "0.0.1"
+description = "CodeLens - a program that determines the programming language from a screenshot, recognizes its text and returns it correctly formatted."
+authors = ["Pavel <>", "Alexander <>", "Steppa <>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytesseract = "^0.3.13"
+pandas = "^2.2.3"
+astvalidate = "^2021.12.31"
+pillow = "^11.0.0"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
