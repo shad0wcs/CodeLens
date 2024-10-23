@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>CodeLens</title>
+
+    {% if code_style is not None and code_style != '' %}
+        <style>{{ code_style | safe }}</style>
+    {% endif %}
+
 </head>
 <body>
 {% block main %}

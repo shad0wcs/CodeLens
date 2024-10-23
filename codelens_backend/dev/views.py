@@ -24,8 +24,8 @@ class TestTesseractView(View):
             name = str(BASE_DIR) +  '\\uploads\\temp\\' + str(png)  # todo add random_postfix
             file_management.save_file(name, request.FILES.get('file'))
 
-            result = example.test_method(name)
+            html_result, code_style = example.test_method(name)
 
             file_management.delete_file(name)
         return render(request, 'dev/test-tesseract.html',
-                      context={'form': form, 'result_text': result} )
+                      context={'form': form, 'result_text': html_result, 'code_style': code_style } )
