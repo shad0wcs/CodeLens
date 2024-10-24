@@ -9,7 +9,7 @@ load_dotenv()
 
 api_usage.CONFIG['TESSERACT_EXE_PATH'] = os.getenv('TESSERACT_EXE_PATH')
 
-result = api_usage.get_idented_text('test_data/img.png')
+result = api_usage.get_idented_text('test_data/good_code.png')
 
 if validation.quick_validation(result):
     splited = result.split('\n')

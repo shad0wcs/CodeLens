@@ -1,13 +1,29 @@
 # -*- coding: utf-8 -*-
 import pytesseract
+from matplotlib import pyplot as plt
 from pytesseract import Output
-from PIL import Image
+from PIL import Image, ImageFilter
+from PIL import ImageEnhance
+import cv2
 import pandas as pd
+from six import binary_type
 
 CONFIG = {
     'TESSERACT_EXE_PATH': 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe',
-    'CONFIG KEYS': r'-c preserve_interword_spaces=1 --oem 1 --psm 1 -l eng+ita'
+    'CONFIG KEYS': r'-c preserve_interword_spaces=1 --oem 1 --psm 6 -l eng+rus'
 }
+
+def ImproveImg(img, size):
+    scale_percent = int(size)
+    image = cv2.imread(img)
+    width = int(image.shape[1] * scale_percent / 100)
+    height = int(image.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+    gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+    cv2.imshow("123", gray)
+    cv2.waitKey(0)
+    return gray
 
 def _setup():
     pytesseract.pytesseract.tesseract_cmd = CONFIG.get('TESSERACT_EXE_PATH')
@@ -15,10 +31,9 @@ def _setup():
 def get_idented_text(imgage_src: str) -> str:
     _setup()
 
-    d = pytesseract.image_to_data(Image.open(imgage_src),
+    d = pytesseract.image_to_data(ImproveImg(imgage_src, 350),
                                   config=CONFIG.get('CONFIG KEYS'), output_type=Output.DICT)
     df = pd.DataFrame(d)
-
     # clean up blanks
     df1 = df[(df.conf != '-1') & (df.text != ' ') & (df.text != '')]
     result = ""
