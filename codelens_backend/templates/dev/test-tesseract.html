@@ -9,6 +9,7 @@
     </form>
     {% if result_text is not None and result_text != "" %}
         <h2>Result:</h2>
+        <h3>Language detected: {{ lang }}</h3>
         <!-- Linebreaksbr converts raw python string to html readable format-->
         <!-- safe filter makes possible passing raw html in context to display-->
         <code> {{ result_text | safe }}</code>
