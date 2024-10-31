@@ -1,3 +1,6 @@
 [submodule "tesseracttraining"]
 	path = tesseracttraining
 	url = https://github.com/Mo11ex/tesseracttraining.git
+[submodule "CodeLensTeacher"]
+	path = CodeLensTeacher
+	url = https://github.com/Mo11ex/CodeLensTeacher.git
