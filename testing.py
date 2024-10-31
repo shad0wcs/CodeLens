@@ -1,11 +1,8 @@
-# import pytesseract
-# from PIL import Image
-
-from tesseract import api_usage
+from tesseract_code import api_usage
 
 if __name__ == '__main__':
-    result = api_usage.get_idented_text('test_data/code2.png')
-    print(result)
+    img = r'test_data/bad_image.jpg'
+    api_usage.detect_words(img)
+    result = api_usage.get_idented_text(img)
 
-    #with open(f'result.txt', 'w') as text_file:
-        #text_file.write(result)
+    print(result)

@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytesseract
-from matplotlib import pyplot as plt
 from pytesseract import Output
-from PIL import Image, ImageFilter
-from PIL import ImageEnhance
 import cv2
 import pandas as pd
-from six import binary_type
+
 
 CONFIG = {
     'TESSERACT_EXE_PATH': 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe',
@@ -20,10 +17,26 @@ def ImproveImg(img, size):
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
     resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+    rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
-    cv2.imshow("123", gray)
-    cv2.waitKey(0)
     return gray
+
+def detect_words(image_src: str):
+    img = cv2.imread(image_src)
+    boxes = pytesseract.image_to_data(img,
+                                      config=CONFIG.get('CONFIG KEYS'))
+    for x, b in enumerate(boxes.splitlines()):
+        if x != 0:
+            b = b.split()
+            if len(b) == 12:
+                x, y, w, h = int(b[6]), int(b[7]), int(b[8]), int(b[9])
+                cv2.rectangle(img, (x, y), (w + x, h + y), (0, 0, 255), 1)
+                cv2.putText(img, b[11], (x, y + 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (50, 50, 255), 1)
+
+
+    cv2.imshow('Result', img)
+    cv2.waitKey(0)
+
 
 def _setup():
     pytesseract.pytesseract.tesseract_cmd = CONFIG.get('TESSERACT_EXE_PATH')

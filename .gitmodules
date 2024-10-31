@@ -1,0 +1,3 @@
+[submodule "tesseracttraining"]
+	path = tesseracttraining
+	url = https://github.com/Mo11ex/tesseracttraining.git

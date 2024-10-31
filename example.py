@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from tesseract import api_usage
+from tesseract_code import api_usage
 from python_formater import validation
 
 from dotenv import load_dotenv
