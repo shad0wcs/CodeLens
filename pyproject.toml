@@ -2,16 +2,19 @@
 name = "codelens"
 version = "0.0.1"
 description = "CodeLens - a program that determines the programming language from a screenshot, recognizes its text and returns it correctly formatted."
-authors = ["Pavel <>", "Alexander <>", "Steppa <>"]
+authors = ["Pavel <pavkos0725@gmail.com>", "Alexander <>", "Steppa <stepa20zoro@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
 pytesseract = "^0.3.13"
-pandas = "^2.2.3"
 astvalidate = "^2021.12.31"
 pillow = "^11.0.0"
 python-dotenv = "^1.0.1"
+django = "^5.1.2"
+pygments = "^2.18.0"
+pandas = "^2.2.3"
+tensorflow = "2.18.0"
 
 
 [build-system]
