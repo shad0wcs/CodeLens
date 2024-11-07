@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 
 from pygments import highlight
-from pygments.lexers import get_lexer_by_name
+from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.formatters import HtmlFormatter
 
 import requests
@@ -30,24 +30,27 @@ def test_method(filename: str) -> (str, str):
         "text": result })
 
     expected_lang = None
+    reliable = False
 
     if response.ok:
         lang_js = response.json()
         if float(lang_js['reliable']):
             expected_lang = lang_js['languageName'].lower()
+            reliable = True
     else:
-        expected_lang = 'text'
+        expected_lang = guess_lexer(result)
 
     try:
        lexer =  get_lexer_by_name(expected_lang)
     except Exception as e:
         lexer =  get_lexer_by_name("text")
 
+    print(f"Lang: {expected_lang}, reliable: {reliable}")
 
     if expected_lang == "python":
         if validation.quick_validation(result):
             html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
-            return html_result, CSS_SHEET, expected_lang
+            return html_result, CSS_SHEET, (expected_lang if reliable else "")
         else:
             pass
     else:
