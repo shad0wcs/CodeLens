@@ -38,7 +38,7 @@ def test_method(filename: str) -> (str, str):
             expected_lang = lang_js['languageName'].lower()
             reliable = True
     else:
-        expected_lang = guess_lexer(result)
+        expected_lang = guess_lexer(result).name
 
     try:
        lexer =  get_lexer_by_name(expected_lang)
@@ -51,7 +51,7 @@ def test_method(filename: str) -> (str, str):
         html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
         valid = validation.quick_validation(result)
         print(f"Valid: {valid}")
-        return html_result, CSS_SHEET, (expected_lang if reliable else ""), valid
+        return html_result, CSS_SHEET, (expected_lang if reliable else None), valid
     else:
         html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
         return html_result, CSS_SHEET, expected_lang, True

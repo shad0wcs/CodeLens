@@ -1,0 +1,36 @@
+version: "3.9" # версия docker-compose
+
+services:
+  web:
+    build:
+      dockerfile: ./Dockerfile
+    hostname: codelens
+    env_file:
+      - .env
+    environment:
+      - TESSERACT_EXE_PATH=/usr/bin/tesseract
+      - CSRF_TRUSTED_ORIGINS=http://localhost:1337
+      - DEBUG=0
+      - PYTHONUBUFFERED=1
+    command: > 
+      sh -c "python manage.py migrate &&
+             gunicorn codelens_backend.wsgi:application --bind 0.0.0.0:8080"
+#    ports:
+#      - "8000:8080"
+    expose:
+      - 8080
+    restart: always
+    volumes:
+      - static_volume:/home/app/web/static
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/static
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+volumes:
+  static_volume:

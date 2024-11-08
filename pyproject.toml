@@ -16,6 +16,7 @@ pygments = "^2.18.0"
 pandas = "^2.2.3"
 tensorflow = "2.18.0"
 opencv-python = "^4.10.0.84"
+gunicorn = "^23.0.0"
 
 
 [build-system]
