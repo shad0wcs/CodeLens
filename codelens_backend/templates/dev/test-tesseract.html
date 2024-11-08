@@ -12,6 +12,9 @@
         {% if lang is not None and lang != "" %}
             <h3>Language detected: {{ lang }}</h3>
         {% endif %}
+        {% if not valid %}
+            <h3>Syntax error in code occured</h3>
+        {% endif %}
         <!-- Linebreaksbr converts raw python string to html readable format-->
         <!-- safe filter makes possible passing raw html in context to display-->
         <code> {{ result_text | safe }}</code>

@@ -24,7 +24,7 @@ def test_method(filename: str) -> (str, str):
     result = api_usage.get_idented_text(filename)
 
     if result.strip() == "":
-        return "", CSS_SHEET, None
+        return "", CSS_SHEET, None, True
 
     response = requests.get("https://guesslang.waterwater.moe/guess", params={
         "text": result })
@@ -48,11 +48,10 @@ def test_method(filename: str) -> (str, str):
     print(f"Lang: {expected_lang}, reliable: {reliable}")
 
     if expected_lang == "python":
-        if validation.quick_validation(result):
-            html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
-            return html_result, CSS_SHEET, (expected_lang if reliable else "")
-        else:
-            pass
+        html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
+        valid = validation.quick_validation(result)
+        print(f"Valid: {valid}")
+        return html_result, CSS_SHEET, (expected_lang if reliable else ""), valid
     else:
         html_result = highlight(result, lexer=lexer, formatter=FORMATTER)
-        return html_result, CSS_SHEET, expected_lang
+        return html_result, CSS_SHEET, expected_lang, True

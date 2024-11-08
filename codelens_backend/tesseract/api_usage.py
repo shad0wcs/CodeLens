@@ -3,16 +3,17 @@ import pytesseract
 from pytesseract import Output
 import cv2
 import pandas as pd
+from PIL import Image
 
 
 CONFIG = {
-    'TESSERACT_EXE_PATH': 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe',
+    'TESSERACT_EXE_PATH': "",
     'CONFIG KEYS': r'-c preserve_interword_spaces=1 --oem 1 --psm 6 -l eng+rus'
 }
 
-def ImproveImg(img, size):
+def improve_img(img_src: str, size: int):
     scale_percent = int(size)
-    image = cv2.imread(img)
+    image = cv2.imread(img_src)
     width = int(image.shape[1] * scale_percent / 100)
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
@@ -22,6 +23,7 @@ def ImproveImg(img, size):
     return gray
 
 def detect_words(image_src: str):
+    _setup()
     img = cv2.imread(image_src)
     boxes = pytesseract.image_to_data(img,
                                       config=CONFIG.get('CONFIG KEYS'))
@@ -41,11 +43,15 @@ def detect_words(image_src: str):
 def _setup():
     pytesseract.pytesseract.tesseract_cmd = CONFIG.get('TESSERACT_EXE_PATH')
 
-def get_idented_text(imgage_src: str) -> str:
+def get_idented_text(image_src: str) -> str:
     _setup()
 
-    d = pytesseract.image_to_data(ImproveImg(imgage_src, 350),
-                                  config=CONFIG.get('CONFIG KEYS'), output_type=Output.DICT)
+    d = pytesseract.image_to_data(improve_img(image_src, 350),
+                                 config=CONFIG.get('CONFIG KEYS'), output_type=Output.DICT)
+
+    # d = pytesseract.image_to_data(Image.open(image_src),
+    #                              config=CONFIG.get('CONFIG KEYS'), output_type=Output.DICT)
+
     df = pd.DataFrame(d)
     # clean up blanks
     df1 = df[(df.conf != '-1') & (df.text != ' ') & (df.text != '')]

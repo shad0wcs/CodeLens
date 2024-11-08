@@ -7,6 +7,6 @@ def quick_validation(src: str) -> bool:
         tree = ast.parse(src, mode='exec')
         assert astvalidate.validate(tree)
     except Exception as e:
-        raise e
+        return False
     return True
 

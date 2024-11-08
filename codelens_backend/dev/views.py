@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.views import View
 
 from codelens_backend.settings import BASE_DIR
-from dulwich.contrib.test_release_robot import BASEDIR
 
 from .forms import UploadPNGForm
 
@@ -24,8 +23,9 @@ class TestTesseractView(View):
             name = str(BASE_DIR) +  '\\uploads\\temp\\' + str(png)  # todo add random_postfix
             file_management.save_file(name, request.FILES.get('file'))
 
-            html_result, code_style, expected_lang = example.test_method(name)
+            html_result, code_style, expected_lang, valid = example.test_method(name)
 
             file_management.delete_file(name)
         return render(request, 'dev/test-tesseract.html',
-                      context={'form': form, 'result_text': html_result, 'code_style': code_style, 'lang': expected_lang } )
+                      context={'form': form, 'result_text': html_result, 'code_style': code_style, 'lang': expected_lang,
+                               'valid': valid} )
