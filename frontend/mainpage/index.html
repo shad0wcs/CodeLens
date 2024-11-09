@@ -5,17 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeLens</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-theme">
+    <div class="noise-overlay"></div>
     <div class="container">
+        <div class="footer-text">CodeLens 2024</div>
         <header>
-            <h1>
-                <span class="star-icon"></span>
-                CodeLens
-                <span class="star-icon"></span>
-            </h1>
-            <button id="theme-toggle">Сменить тему</button>
+    <nav>
+        <ul class="nav-list">
+            <li><a href="#" class="nav-item">О нас</a></li>
+            <label class="theme-toggle">
+                <input type="checkbox" id="themeSwitch" onclick="toggleTheme()">
+                <span></span>
+            </label>
+        </ul>
+    </nav>
+    <h1>
+        <span class="star-icon"></span>
+        CodeLens
+        <span class="star-icon"></span>
+    </h1>
         </header>
 
         <div class="upload-section">
@@ -31,6 +41,6 @@
         <button class="convert-button">Convert To Code</button>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
