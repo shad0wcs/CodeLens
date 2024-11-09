@@ -1,0 +1,233 @@
+/* Основные стили — теперь это темная тема */
+body.dark-theme {
+    margin: 0;
+    font-family: Montserrat;
+    background-color: #1b1b1b; /* Темный фон по умолчанию */
+    color: #fff; /* Светлый текст для темной темы */
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('background-image.png') repeat;
+    opacity: 0.75; /* Регулируйте, чтобы увеличить или уменьшить интенсивность */
+    pointer-events: none; /* Отключает взаимодействие, чтобы не блокировать клики */
+    z-index: 1000; /* Убедимся, что слой выше всего остального */
+}
+
+/* Контейнер */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 0px 20px;
+}
+
+/* Светлая тема — применяем только через класс .light-theme */
+body.light-theme {
+    margin: 0;
+    font-family: Montserrat;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+
+}
+
+/* Стиль заголовков */
+.title {
+    font-size: 60px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: -15px;
+}
+
+.subtitle {
+    font-size: 115px;
+    text-align: center;
+    margin-top: -20px;
+    font-weight: bold;
+}
+
+/* Контент */
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-left: 0;
+}
+
+/* Список создателей */
+.creators {
+    width: 100%;
+    margin-top: -75px;
+    padding-left: 0;
+    margin-left: -150px;
+}
+
+.creators h3 {
+    font-size: 60px;
+    margin-left: 0;
+}
+
+.creators span {
+    color: #505050;
+}
+
+.creators ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 0px;
+}
+
+.creators li {
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.creator-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Описание проекта */
+.description {
+    width: 125%;
+    text-align: left;
+    font-size: 30px;
+    margin-left: 100px;
+    margin-top: -35px;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 75%;
+}
+
+.description p {
+    margin-bottom: 50px;
+    margin-left: 100px;
+}
+
+.github-links {
+    color: white;
+    width: 100%;
+    text-align: left;
+    font-size: 30px;
+    margin-top: 0px;
+    margin-left: 200px;
+    text-decoration: underline;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+body.light-theme .github-links a{
+    color: #333;
+    text-decoration-color: #333;
+}
+
+body.light-theme .a{
+    color: #333;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Кнопка возврата */
+.back-button {
+    color: #fff;
+    position: fixed;
+    top: 60px;
+    left: 100px;
+    background: none;
+    border: 2px solid;
+    width: 7%;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #ccc;
+}
+
+body.light-theme .back-button {
+    color: #333;
+}
+
+/* Переключатель темы */
+.theme-toggle {
+    position: fixed;
+    top: 60px;
+    right: 100px;
+    cursor: pointer;
+}
+
+.theme-toggle input {
+    display: none;
+}
+
+.theme-toggle span {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.theme-toggle span:before {
+    content: "1";
+    color: #000000;
+    text-align: center;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.3s;
+}
+
+.theme-toggle input:checked + span {
+    background: #666;
+}
+
+.theme-toggle input:checked + span:before {
+    transform: translateX(10px);
+    text-align: center;
+    content: "0";
+}
+
+footer {
+    position: fixed;
+    bottom: 60px;
+    left: 100px;
+    font-size: 21px;
+    color: #AEAEAE;
+    opacity: 0.7;
+}
+
+body.light-theme footer {
+    color: #333;
+}
