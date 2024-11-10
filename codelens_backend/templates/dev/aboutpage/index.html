@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>О нас - CodeLens</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'dev/css/aboutpage/styles.css' %}">
+    </head>
+    <body class="dark-theme">
+        <div class="container">
+            <div class="noise-overlay"></div>
+            <!-- Кнопка возврата -->
+            <!-- <button class="back-button" onclick="goBack()">←</button> -->
+            <a class="back-button" href="{% url 'dev:test-tesseract' %}">←</a>
+
+            <!-- Переключатель темы -->
+            <label class="theme-toggle">
+                <input type="checkbox" id="themeSwitch" onclick="toggleTheme()">
+                <span></span>
+            </label>
+
+            <!-- Основной контент -->
+            <h1 class="title">О нас</h1>
+            <h2 class="subtitle">CodeLens</h2>
+
+            <div class="content">
+                <!-- Список создателей -->
+                <div class="creators">
+                    <h3>Создатели проекта:</h3>
+                    <ul>
+                        <li>
+                            <img src="{% static 'dev/img/aboutpage/sasha.jpg' %}" alt="Фото Александра" class="creator-photo">
+                            Колотов Александр <span>@kltvlxndr</span>
+                        </li>
+                        <li>
+                            <img src="{% static 'dev/img/aboutpage/pasha.jpg' %}" alt="Фото Павла" class="creator-photo">
+                            Костюк Павел <span>@piligrimdev</span>
+                        </li>
+                        <li>
+                            <img src="{% static 'dev/img/aboutpage/stepa.jpg' %}" alt="Фото Степана" class="creator-photo">
+                            Зорин Степан <span>@FutureStep1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Описание проекта -->
+                <div class="description-container">
+                    <div class="description">
+                        <p>CodeLens - программа, которая определяет язык программирования с изображения, распознает текст и возвращает его в правильном формате.<br> Сервис позволяет на <b>30% быстрее</b> получить готовый к использованию код с изображения по сравнению с аналогами.</p>
+                    </div>
+                    <div class="github-links">
+                        <a href="https://github.com/shad0wcs/CodeLens">CodeLens GitHub</a><br>
+                        <a href="https://github.com/Mo11ex/CodeLensTeacher">CodeLensTeacher GitHub</a>
+                    </div>
+                </div>
+
+            <footer>CodeLens 2024</footer>
+        </div>
+
+        <script src="{% static 'dev/js/aboutpage/script.js' %}"></script>
+    </body>
+</html>

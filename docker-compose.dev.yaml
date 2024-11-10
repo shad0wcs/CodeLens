@@ -21,16 +21,16 @@ services:
       - 8080
     restart: always
     volumes:
-      - static_volume:/home/app/web/static
+      - codelens_static_volume:/home/app/web/static
 
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/home/app/web/static
+      - codelens_static_volume:/home/app/web/static
     ports:
       - 1337:80
     depends_on:
       - web
 
 volumes:
-  static_volume:
+  codelens_static_volume:

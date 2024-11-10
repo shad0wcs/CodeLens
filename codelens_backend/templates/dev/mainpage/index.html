@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;800&display=swap">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CodeLens</title>
+        <link rel="stylesheet" href="{% static 'dev/css/mainpage/styles.css' %}">
+
+        {% if code_style is not None and code_style != '' %}
+            <style>{{ code_style | safe }}</style>
+        {% endif %}
+
+        <style>
+            div.code-block {
+                text-align: left;
+            }
+            div.result-box{
+                width: fit-content;
+                height: fit-content;
+            }
+        </style>
+    </head>
+
+    <body class="dark-theme">
+        <div class="noise-overlay"></div>
+        <div class="container">
+            <div class="footer-text">CodeLens 2024</div>
+            <header>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'dev:about' %}" class="nav-item">О нас</a></li>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="themeSwitch" onclick="toggleTheme()">
+                    <span></span>
+                </label>
+            </ul>
+        </nav>
+        <h1>
+            <span class="star-icon"></span>
+            CodeLens
+            <span class="star-icon"></span>
+        </h1>
+            </header>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="upload-section">
+                    <div class="upload-box">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="result-box">
+                        {% if result_text is not None and result_text != "" %}
+                            {{ result_text | safe }}
+                        {% else %}
+                                <p>Здесь появится<br>отформатированный код</p>
+                        {% endif %}
+                    </div>
+
+                    {% if result_text is not None and result_text != "" %}
+                        {% if lang is not None and lang != "" %}
+                        <div class="result-box">
+                                <h3>Язык распознан как: {{ lang }}</h3>
+                        </div>
+                        {% endif %}
+                        {% if not valid %}
+                        <div class="result-box">
+                                <h3>В коде найдена Syntax Error</h3>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <button class="convert-button" type="submit">Получить код</button>
+            </form>
+        </div>
+
+        <script src="{% static 'dev/js/mainpage/script.js' %}"></script>
+    </body>
+</html>

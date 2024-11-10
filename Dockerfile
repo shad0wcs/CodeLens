@@ -8,7 +8,6 @@ RUN mkdir /home/app/web/
 RUN mkdir /home/app/web/static
 WORKDIR /home/app/web
 
-COPY frontend /home/app/web/static
 COPY poetry.lock pyproject.toml ./
 
 RUN pip install --upgrade pip "poetry==1.8.4"
