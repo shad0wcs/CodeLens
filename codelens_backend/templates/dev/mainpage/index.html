@@ -12,16 +12,6 @@
         {% if code_style is not None and code_style != '' %}
             <style>{{ code_style | safe }}</style>
         {% endif %}
-
-        <style>
-            div.code-block {
-                text-align: left;
-            }
-            div.result-box{
-                width: fit-content;
-                height: fit-content;
-            }
-        </style>
     </head>
 
     <body class="dark-theme">
@@ -48,29 +38,18 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="upload-section">
-                    <div class="upload-box">
+                    <div class="upload-box" id="uploadBox">
                         {{ form.as_p }}
+                        <input type="file" id="fileInput" hidden>
+                        <p id="fileName"></p>
                     </div>
-                    <div class="result-box">
+                    <div class="result-box" id="resultBox" onclick="copyToClipboard()">
                         {% if result_text is not None and result_text != "" %}
                             {{ result_text | safe }}
                         {% else %}
                                 <p>Здесь появится<br>отформатированный код</p>
                         {% endif %}
                     </div>
-
-                    {% if result_text is not None and result_text != "" %}
-                        {% if lang is not None and lang != "" %}
-                        <div class="result-box">
-                                <h3>Язык распознан как: {{ lang }}</h3>
-                        </div>
-                        {% endif %}
-                        {% if not valid %}
-                        <div class="result-box">
-                                <h3>В коде найдена Syntax Error</h3>
-                        </div>
-                        {% endif %}
-                    {% endif %}
                 </div>
                 <button class="convert-button" type="submit">Получить код</button>
             </form>
