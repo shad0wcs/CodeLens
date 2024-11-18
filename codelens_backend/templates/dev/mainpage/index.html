@@ -40,6 +40,7 @@
                 <div class="upload-section">
                     <div class="upload-box">
                         {{ form.as_p }}
+                        <p id="fileNameDisplay">Файл не выбран</p>
                     </div>
                     <div class="result-box" id="resultBox" onclick="copyToClipboard()">
                         {% if result_text is not None and result_text != "" %}
