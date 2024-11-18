@@ -42,8 +42,7 @@ body.dark-theme {
 
 .container {
     text-align: center;
-    width: 60%;
-    max-width: 1200px;
+    width: 75%;
 }
 
 header h1 {
@@ -73,6 +72,7 @@ header h1 {
     font-weight: 500;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
+    display: flex;
     padding: 10px 20px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
@@ -88,17 +88,18 @@ header h1 {
     background-size: contain;       /* Подгоняем размер под элемент */
     background-repeat: no-repeat;   /* Отключаем повтор */
     vertical-align: middle;         /* Выравниваем по центру текста */
+    display: flex;
     margin: 0 5px;                  /* Отступ для пространства */
 }
 
 /* Темная тема */
 .dark-theme .star-icon {
-    background-image: url("star_dark.svg");
+    background-image: url("../../img/mainpage/star_dark.svg");
 }
 
 /* Светлая тема */
 .light-theme .star-icon {
-    background-image: url("star_light.svg");
+    background-image: url("../../img/mainpage/star_light.svg");
 }
 
 .upload-section {
@@ -108,9 +109,9 @@ header h1 {
 }
 
 .upload-box, .result-box {
-    width: 500px;
+    width: 100%;
     height: 300px;
-    overflow: auto; /* Добавьте прокрутку, если контент превышает размеры */
+    overflow: auto;
     border: 1px solid rgba(255, 255, 255, 1);
     display: flex;
     justify-content: flex-start;    /* Выровнять текст по горизонтали влево */
@@ -123,7 +124,6 @@ header h1 {
     font-size: 1.2rem;
     cursor: pointer;
     text-align: left; /* Выравнивание текста по левому краю */
-    white-space: pre-wrap; /* Сохраняем переносы строк в тексте */
 }
 
 .upload-box label, .result-box p {
@@ -137,24 +137,33 @@ header h1 {
 
 .upload-box {
     margin-right: 150px; /* Отступ справа от блока */
-    cursor: pointer;
-}
-
-.upload-box.drag-over {
-    background: rgba(255, 255, 255, 0.1); /* Подсветка зоны при перетаскивании */
-    border: 2px dashed rgba(255, 255, 255, 0.5);
-}
-
-/* Стили для имени файла */
-#fileName {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #ccc;
 }
 
 .upload-box:hover {
     background: rgba(0, 0, 0, 0.5); /* Темнее фон при наведении */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Добавляем тень */
+}
+
+/* Медиа-запрос для экранов до 768px */
+@media screen and (max-width: 768px) {
+    .upload-section {
+        flex-direction: column; /* Переключаемся на вертикальное размещение */
+        align-items: center; /* Центрируем блоки по горизонтали */
+        gap: 20px; /* Расстояние между блоками */
+    }
+
+    .upload-box,
+    .result-box,
+    .convert-button {
+        width: 100%; /* Растягиваем блоки на всю ширину */
+        max-width: 500px; /* Ограничиваем максимальную ширину */
+        height: auto; /* Высота адаптируется к содержимому */
+        padding: 10px;
+    }
+
+    .upload-box {
+        margin-right: 0px; /* Отступ справа от блока */
+    }
 }
 
 input[type="file"] {
@@ -172,7 +181,6 @@ input[type="file"] {
 	background: rgba(0, 0, 0, 0.32);
     border: 1px solid rgba(255, 255, 255, 1);
     cursor: pointer;
-
 	/* Стили по дизайну */
     font-family: Montserrat;
 	font-size: 30px;
@@ -190,6 +198,7 @@ input[type="file"] {
 
 .footer-text {
     font-family: Montserrat;
+    display: flex;
     position: fixed; /* Зафиксировать внизу экрана */
     bottom: 60px; /* Отступ от нижнего края */
     left: 100px; /* Отступ слева */
@@ -227,7 +236,7 @@ body.light-theme {
 body.light-theme .upload-box,
 body.light-theme .result-box {
     background: rgba(146, 146, 146, 0.32);
-    border: 1px solid rgba(74, 74, 74, 1)
+    border: 1px solid rgba(74, 74, 74, 1);
 }
 
 body.light-theme .custom-file-upload {

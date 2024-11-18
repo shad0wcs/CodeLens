@@ -38,10 +38,8 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="upload-section">
-                    <div class="upload-box" id="uploadBox">
+                    <div class="upload-box">
                         {{ form.as_p }}
-                        <input type="file" id="fileInput" hidden>
-                        <p id="fileName"></p>
                     </div>
                     <div class="result-box" id="resultBox" onclick="copyToClipboard()">
                         {% if result_text is not None and result_text != "" %}
