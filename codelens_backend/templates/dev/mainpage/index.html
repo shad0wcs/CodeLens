@@ -49,6 +49,20 @@
                                 <p>Здесь появится<br>отформатированный код</p>
                         {% endif %}
                     </div>
+
+                    {% if result_text is not None and result_text != "" %}
+                        {% if lang is not None and lang != "" %}
+                        <div class="lang-box">
+                                <h3>Язык распознан как: {{ lang }}</h3>
+                        </div>
+                        {% endif %}
+                        {% if not valid %}
+                        <div class="syntax-box">
+                                <h3>В коде найдена Syntax Error</h3>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
                 </div>
                 <button class="convert-button" type="submit">Получить код</button>
             </form>
