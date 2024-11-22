@@ -12,16 +12,6 @@
         {% if code_style is not None and code_style != '' %}
             <style>{{ code_style | safe }}</style>
         {% endif %}
-
-        <style>
-            div.code-block {
-                text-align: left;
-            }
-            div.result-box{
-                width: fit-content;
-                height: fit-content;
-            }
-        </style>
     </head>
 
     <body class="dark-theme">
@@ -50,8 +40,9 @@
                 <div class="upload-section">
                     <div class="upload-box">
                         {{ form.as_p }}
+                        <p id="fileNameDisplay">Файл не выбран</p>
                     </div>
-                    <div class="result-box">
+                    <div class="result-box" id="resultBox" onclick="copyToClipboard()">
                         {% if result_text is not None and result_text != "" %}
                             {{ result_text | safe }}
                         {% else %}
@@ -61,16 +52,17 @@
 
                     {% if result_text is not None and result_text != "" %}
                         {% if lang is not None and lang != "" %}
-                        <div class="result-box">
+                        <div class="lang-box">
                                 <h3>Язык распознан как: {{ lang }}</h3>
                         </div>
                         {% endif %}
                         {% if not valid %}
-                        <div class="result-box">
+                        <div class="syntax-box">
                                 <h3>В коде найдена Syntax Error</h3>
                         </div>
                         {% endif %}
                     {% endif %}
+
                 </div>
                 <button class="convert-button" type="submit">Получить код</button>
             </form>

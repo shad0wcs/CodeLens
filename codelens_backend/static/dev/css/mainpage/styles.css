@@ -42,14 +42,13 @@ body.dark-theme {
 
 .container {
     text-align: center;
-    width: 60%;
-    max-width: 1200px;
+    width: 75%;
 }
 
 header h1 {
     font-family: Montserrat;
     display: flex;  
-    align-items: center;         /* Центрируем элементы по вертикали */
+    align-items: center;
     justify-content: center;  
 	font-size: 59px;
 	font-weight: 800;
@@ -73,6 +72,7 @@ header h1 {
     font-weight: 500;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
+    display: flex;
     padding: 10px 20px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
@@ -88,17 +88,18 @@ header h1 {
     background-size: contain;       /* Подгоняем размер под элемент */
     background-repeat: no-repeat;   /* Отключаем повтор */
     vertical-align: middle;         /* Выравниваем по центру текста */
+    display: flex;
     margin: 0 5px;                  /* Отступ для пространства */
 }
 
 /* Темная тема */
 .dark-theme .star-icon {
-    background-image: url("star_dark.svg");
+    background-image: url("../../img/mainpage/star_dark.svg");
 }
 
 /* Светлая тема */
 .light-theme .star-icon {
-    background-image: url("star_light.svg");
+    background-image: url("../../img/mainpage/star_light.svg");
 }
 
 .upload-section {
@@ -108,8 +109,9 @@ header h1 {
 }
 
 .upload-box, .result-box {
-    width: 50%;
+    width: 100%;
     height: 300px;
+    overflow: auto;
     border: 1px solid rgba(255, 255, 255, 1);
     display: flex;
     justify-content: flex-start;    /* Выровнять текст по горизонтали влево */
@@ -121,6 +123,7 @@ header h1 {
     font-family: Montserrat;
     font-size: 1.2rem;
     cursor: pointer;
+    text-align: left; /* Выравнивание текста по левому краю */
 }
 
 .upload-box label, .result-box p {
@@ -141,6 +144,38 @@ header h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Добавляем тень */
 }
 
+#fileNameDisplay {
+    font-size: 14px;
+    color: rgba(174, 174, 174, 1); 
+    font-family: Montserrat;
+    white-space: nowrap; /* Не переносить текст на новую строку */
+    overflow: hidden;    /* Скрывать лишний текст */
+    text-overflow: ellipsis; /* Добавить многоточие, если текст слишком длинный */
+    z-index: 1;
+}
+
+/* Медиа-запрос для экранов до 768px */
+@media screen and (max-width: 768px) {
+    .upload-section {
+        flex-direction: column; /* Переключаемся на вертикальное размещение */
+        align-items: center; /* Центрируем блоки по горизонтали */
+        gap: 20px; /* Расстояние между блоками */
+    }
+
+    .upload-box,
+    .result-box,
+    .convert-button {
+        width: 100%; /* Растягиваем блоки на всю ширину */
+        max-width: 500px; /* Ограничиваем максимальную ширину */
+        height: auto; /* Высота адаптируется к содержимому */
+        padding: 10px;
+    }
+
+    .upload-box {
+        margin-right: 0px;
+    }
+}
+
 input[type="file"] {
     display: none;
 }
@@ -156,7 +191,6 @@ input[type="file"] {
 	background: rgba(0, 0, 0, 0.32);
     border: 1px solid rgba(255, 255, 255, 1);
     cursor: pointer;
-
 	/* Стили по дизайну */
     font-family: Montserrat;
 	font-size: 30px;
@@ -174,6 +208,7 @@ input[type="file"] {
 
 .footer-text {
     font-family: Montserrat;
+    display: flex;
     position: fixed; /* Зафиксировать внизу экрана */
     bottom: 60px; /* Отступ от нижнего края */
     left: 100px; /* Отступ слева */
@@ -198,7 +233,7 @@ body.light-theme {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('background-image.png') repeat;
+    background: url('../../img/mainpage/background-image.png') repeat;
     opacity: 0.3; /* Регулируйте, чтобы увеличить или уменьшить интенсивность */
     pointer-events: none; /* Отключает взаимодействие, чтобы не блокировать клики */
     z-index: 1000; /* Убедимся, что слой выше всего остального */
@@ -211,7 +246,7 @@ body.light-theme {
 body.light-theme .upload-box,
 body.light-theme .result-box {
     background: rgba(146, 146, 146, 0.32);
-    border: 1px solid rgba(74, 74, 74, 1)
+    border: 1px solid rgba(74, 74, 74, 1);
 }
 
 body.light-theme .custom-file-upload {
