@@ -9,9 +9,12 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
-from pathlib import Path
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,8 +32,8 @@ DEBUG = bool(int(os.getenv("DEBUG", 1)))
 ALLOWED_HOSTS = ["127.0.0.1"]
 ALLOWED_HOSTS += os.getenv("ALLOWED_HOSTS", "").split(',')
 
-CSRF_TRUSTED_ORIGINS = []
-CSRF_TRUSTED_ORIGINS += os.getenv("CSRF_TRUSTED_ORIGINS", "http://localhost").split(',')
+CSRF_TRUSTED_ORIGINS = ["http://localhost"]
+CSRF_TRUSTED_ORIGINS += os.getenv("CSRF_TRUSTED_ORIGINS", "").split(',')
 
 # Application definition
 
@@ -122,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]

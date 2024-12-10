@@ -1,58 +1,50 @@
-from django.http import HttpRequest, HttpResponse
+"""
+Views для приложения.
+
+Содержит View для страницы о нас и
+страницы с формой для обработки запроса.
+"""
 from django.shortcuts import render
-from django.views import View
+from django.views.generic import FormView, TemplateView
 
 from codelens_backend.settings import BASE_DIR
-from django.views.generic import TemplateView
+from utils import example, file_management
 
 from .forms import UploadPNGForm
 
-from utils import file_management, example
 
-class TestTesseractView(View):
-    def get(self, request: HttpRequest) -> HttpResponse:
-        form = UploadPNGForm()
-        return render(request, 'dev/mainpage/index.html',
-                      context={'form': form })
+class TestTesseractView(FormView):
+    """View для отображения формы обработки изображения."""
 
-    def post(self, request: HttpRequest) -> HttpResponse:
-        form = UploadPNGForm(request.POST, request.FILES)
-        result = None
-        if form.is_valid():
-            png = form.cleaned_data.get('file')
+    template_name = 'dev/mainpage/index.html'
+    form_class = UploadPNGForm
 
-            name = str(BASE_DIR) +  '\\uploads\\temp\\' + str(png)  # todo add random_postfix
-            file_management.save_file(name, request.FILES.get('file'))
+    def form_valid(self, form):
+        """
+        Обрабатывает валидную форму.
 
-            html_result, code_style, expected_lang, valid = example.test_method(name)
+        form: экземпляр формы с заполненными валидными данными
+        return: HttpResponse с контекстом, в котором находится результат обработки:
+        Текст, язык, наличие ошибок в синтаксисе и css таблица для подсветки
+        """
+        code_snippet_image = form.cleaned_data.get('file')
 
-            file_management.delete_file(name)
-        return render(request, 'dev/mainpage/index.html',
-                      context={'form': form, 'result_text': html_result, 'code_style': code_style, 'lang': expected_lang,
-                               'valid': valid} )
+        snippet_file_name = (str(BASE_DIR) + '\\uploads\\temp\\' +
+                             str(code_snippet_image))  # todo add random_postfix
+        file_management.save_file(snippet_file_name, self.request.FILES.get('file'))
+
+        html_result, code_style, expected_lang, valid\
+            = example.process_code_snippet_image(snippet_file_name)
+
+        file_management.delete_file(snippet_file_name)
+
+        return render(self.request, self.template_name,
+                      context={'form': form, 'result_text': html_result,
+                               'code_style': code_style, 'lang': expected_lang,
+                               'valid': valid})
+
 
 class AboutPage(TemplateView):
+    """View для отображения страницы 'О нас'."""
+
     template_name = "dev/aboutpage/index.html"
-
-
-class LegacyTestTesseractView(View):
-    def get(self, request: HttpRequest) -> HttpResponse:
-        form = UploadPNGForm()
-        return render(request, 'dev/test-tesseract.html',
-                      context={'form': form })
-
-    def post(self, request: HttpRequest) -> HttpResponse:
-        form = UploadPNGForm(request.POST, request.FILES)
-        result = None
-        if form.is_valid():
-            png = form.cleaned_data.get('file')
-
-            name = str(BASE_DIR) +  '\\uploads\\temp\\' + str(png)  # todo add random_postfix
-            file_management.save_file(name, request.FILES.get('file'))
-
-            html_result, code_style, expected_lang, valid = example.test_method(name)
-
-            file_management.delete_file(name)
-        return render(request, 'dev/test-tesseract.html',
-                      context={'form': form, 'result_text': html_result, 'code_style': code_style, 'lang': expected_lang,
-                               'valid': valid} )

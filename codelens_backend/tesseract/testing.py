@@ -1,6 +1,8 @@
+"""Методы для тестирования работы Tesseract'а."""
+import os
+
 import api_usage
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
