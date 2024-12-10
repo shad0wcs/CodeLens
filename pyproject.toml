@@ -4,6 +4,7 @@ version = "0.0.1"
 description = "CodeLens - a program that determines the programming language from a screenshot, recognizes its text and returns it correctly formatted."
 authors = ["Pavel <pavkos0725@gmail.com>", "Alexander <kolotov2004@list.ru>", "Steppa <stepa20zoro@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -16,6 +17,11 @@ pygments = "^2.18.0"
 pandas = "^2.2.3"
 opencv-python = "^4.10.0.84"
 gunicorn = "^23.0.0"
+flake8 = "^7.1.1"
+flake8-bugbear = "^24.10.31"
+pep8-naming = "^0.14.1"
+flake8-docstrings = "^1.7.0"
+flake8-bandit = "^4.1.1"
 
 
 [build-system]

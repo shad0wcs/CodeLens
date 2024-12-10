@@ -1,0 +1,19 @@
+version: "3.9" # версия docker-compose
+
+services:
+  web:
+    build:
+      dockerfile: ./Dockerfile
+    environment:
+      - TEST=1
+      - TESSERACT_EXE_PATH=""
+      - CSRF_TRUSTED_ORIGINS=""
+      - ALLOWED_HOSTS=""
+      - DEBUG=1
+    command: > 
+      sh -c "python manage.py test"
+    volumes:
+      - static_volume:/home/app/web/static
+
+volumes:
+  static_volume:

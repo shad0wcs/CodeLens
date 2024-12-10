@@ -1,0 +1,30 @@
+stages:
+  - linting
+  - testing
+  - building
+
+flake8:
+  image: python:3.12
+  stage: linting
+  script:
+    - pip install -r linting_requirements.txt
+    - flake8 codelens_backend
+
+django-tests:
+  stage: testing
+  script:
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_KEY
+    - docker compose -f docker-compose.test.yaml down
+    - docker compose -f docker-compose.test.yaml build --no-cache
+    - docker compose -f docker-compose.test.yaml up --abort-on-container-exit
+
+build:
+  stage: building
+  script:
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_KEY
+    
+    - docker build -t $DOCKER_REGISTRY_USER/codelens-nginx nginx/
+    - docker push $DOCKER_REGISTRY_USER/codelens-nginx
+
+    - docker build -t $DOCKER_REGISTRY_USER/codelens-web -f Dockerfile .
+    - docker push $DOCKER_REGISTRY_USER/codelens-web
