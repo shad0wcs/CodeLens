@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Методы, использующие API Tesseract'а и вспомогательные методы."""
 import cv2
+import numpy as np
 import pandas as pd
 import pytesseract
 # from PIL import Image
@@ -22,7 +23,8 @@ def improve_img(img_src: str, size: int):
     """
     # todo Степчик добавь сюда описание
     scale_percent = int(size)
-    image = cv2.imread(img_src)
+    # image = cv2.imread(img_src)
+    image = cv2.imdecode(np.fromfile(img_src, dtype=np.uint8), cv2.IMREAD_COLOR)
     width = int(image.shape[1] * scale_percent / 100)
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
